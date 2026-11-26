@@ -3,6 +3,7 @@ import { api } from './api.js';
 import TaskForm from './components/TaskForm.jsx';
 import TaskItem from './components/TaskItem.jsx';
 import WeatherCard from './components/WeatherCard.jsx';
+import Spinner from './components/Spinner.jsx';
 
 const FILTERS = ['all', 'active', 'completed'];
 
@@ -44,6 +45,7 @@ export default function App() {
     run(async () => {
       await api.deleteTask(id);
       setTasks((t) => t.filter((x) => x._id !== id));
+      return true;
     });
 
   const visible = useMemo(
@@ -61,7 +63,9 @@ export default function App() {
         <div>
           <h1>Today’s tasks</h1>
           <p className="muted">
-            {tasks.length === 0
+            {loading
+              ? 'Loading…'
+              : tasks.length === 0
               ? 'Nothing planned yet.'
               : `${remaining} of ${tasks.length} still to do`}
           </p>
@@ -93,7 +97,9 @@ export default function App() {
       </div>
 
       {loading ? (
-        <p className="muted">Loading tasks…</p>
+        <div className="center">
+          <Spinner size={26} label="Loading tasks" /> Loading tasks…
+        </div>
       ) : visible.length === 0 ? (
         <p className="empty">
           {filter === 'all' ? 'Add your first task above.' : `No ${filter} tasks.`}

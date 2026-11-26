@@ -89,3 +89,20 @@ textarea { resize: vertical; }
   .weather { flex-basis: 100%; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+.spinner {
+  display: inline-block;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  vertical-align: -3px;
+  flex-shrink: 0;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.btn .spinner { margin-right: 0.4rem; }
+.btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.center { display: flex; align-items: center; justify-content: center; gap: 0.6rem; padding: 2rem 0; color: var(--muted); }
+.item.busy { opacity: 0.65; pointer-events: none; }
+.check .spinner { margin-top: 0.2rem; color: var(--accent); }
+/* keep the spinner moving, but slower, for reduced-motion users */
+@media (prefers-reduced-motion: reduce) { .spinner { animation: spin 1.6s linear infinite !important; } }

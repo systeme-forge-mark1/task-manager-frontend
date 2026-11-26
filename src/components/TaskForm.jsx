@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Spinner from './Spinner.jsx';
 
 export default function TaskForm({ onSubmit }) {
   const [title, setTitle] = useState('');
@@ -8,7 +9,7 @@ export default function TaskForm({ onSubmit }) {
 
   const submit = async (e) => {
     e.preventDefault();
-    if (!title.trim()) return;
+    if (!title.trim() || busy) return;
     setBusy(true);
     const ok = await onSubmit({ title, description, priority });
     setBusy(false);
@@ -20,12 +21,13 @@ export default function TaskForm({ onSubmit }) {
   };
 
   return (
-    <form className="card form" onSubmit={submit}>
+    <form className="card form" onSubmit={submit} aria-busy={busy}>
       <input
         aria-label="Task title"
         placeholder="What needs doing?"
         value={title}
         maxLength={200}
+        disabled={busy}
         onChange={(e) => setTitle(e.target.value)}
         required
       />
@@ -35,15 +37,17 @@ export default function TaskForm({ onSubmit }) {
         value={description}
         maxLength={1000}
         rows={2}
+        disabled={busy}
         onChange={(e) => setDescription(e.target.value)}
       />
       <div className="row">
-        <select aria-label="Priority" value={priority} onChange={(e) => setPriority(e.target.value)}>
+        <select aria-label="Priority" value={priority} disabled={busy} onChange={(e) => setPriority(e.target.value)}>
           <option value="low">Low priority</option>
           <option value="medium">Medium priority</option>
           <option value="high">High priority</option>
         </select>
         <button className="btn primary" disabled={busy || !title.trim()}>
+          {busy && <Spinner />}
           {busy ? 'Adding…' : 'Add task'}
         </button>
       </div>
