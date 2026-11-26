@@ -1,0 +1,91 @@
+:root {
+  --bg: #eef1ec;
+  --surface: #ffffff;
+  --ink: #1f2a26;
+  --muted: #66726c;
+  --line: #d6ddd7;
+  --accent: #1f6f63;
+  --accent-ink: #ffffff;
+  --danger: #b3412e;
+  --high: #c0562f;
+  --medium: #b58a1b;
+  --low: #5b8a72;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Bricolage Grotesque', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  line-height: 1.5;
+}
+.shell { max-width: 760px; margin: 0 auto; padding: 2rem 1rem 4rem; }
+h1 { margin: 0; font-size: clamp(2rem, 6vw, 3rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.05; }
+h3 { margin: 0; font-size: 1.05rem; font-weight: 600; }
+.muted { color: var(--muted); margin: 0.25rem 0 0; }
+
+.masthead { display: flex; flex-wrap: wrap; gap: 1.25rem; justify-content: space-between; align-items: flex-end; margin-bottom: 1.5rem; }
+
+.weather { background: var(--ink); color: #eaf1ed; border-radius: 10px; padding: 0.75rem 1rem; min-width: 250px; flex: 0 1 280px; }
+.w-main { display: grid; gap: 0.1rem; margin-bottom: 0.5rem; }
+.w-main strong { font-size: 1.8rem; line-height: 1; }
+.w-main small, .weather small { color: #b7c6be; }
+.weather .err { color: #ffb4a3; }
+.weather form { display: flex; gap: 0.4rem; }
+.weather input { flex: 1; min-width: 0; background: #2b3934; color: #fff; border-color: #3b4a44; }
+.weather .btn { background: #2b3934; color: #fff; border-color: #3b4a44; }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1rem; }
+.form { display: grid; gap: 0.6rem; }
+.row { display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: space-between; align-items: center; }
+
+input, textarea, select {
+  font: inherit; color: inherit; width: 100%;
+  padding: 0.6rem 0.75rem; border: 1px solid var(--line); border-radius: 8px; background: #fff;
+}
+select { width: auto; }
+textarea { resize: vertical; }
+:focus-visible { outline: 3px solid color-mix(in srgb, var(--accent) 55%, white); outline-offset: 1px; }
+
+.btn {
+  font: inherit; cursor: pointer; padding: 0.5rem 0.9rem; border-radius: 8px;
+  border: 1px solid var(--line); background: #fff; color: var(--ink);
+}
+.btn:hover { border-color: var(--ink); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 600; }
+.btn.primary:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn.danger { color: var(--danger); }
+.btn.danger:hover { border-color: var(--danger); }
+.link { background: none; border: 0; color: inherit; text-decoration: underline; cursor: pointer; font: inherit; }
+
+.alert {
+  display: flex; justify-content: space-between; gap: 1rem; margin-top: 1rem;
+  background: #fbeae6; border: 1px solid #e6b8ad; color: #7a2a1b; padding: 0.7rem 1rem; border-radius: 8px;
+}
+
+.filters { display: flex; gap: 0.4rem; margin: 1.5rem 0 0.75rem; }
+.tab { font: inherit; cursor: pointer; padding: 0.35rem 0.9rem; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--muted); }
+.tab.active { background: var(--ink); border-color: var(--ink); color: #fff; }
+
+.list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
+.item { display: flex; gap: 0.85rem; align-items: flex-start; border-left: 5px solid var(--medium); }
+.item[data-priority='high'] { border-left-color: var(--high); }
+.item[data-priority='low'] { border-left-color: var(--low); }
+.item .form { width: 100%; }
+.check input { width: 1.25rem; height: 1.25rem; margin-top: 0.2rem; accent-color: var(--accent); cursor: pointer; }
+.body { flex: 1; min-width: 0; }
+.body p { margin: 0.2rem 0 0.4rem; color: var(--muted); overflow-wrap: anywhere; }
+.body h3 { overflow-wrap: anywhere; }
+.tag { font-size: 0.8rem; color: var(--muted); }
+.actions { display: flex; gap: 0.4rem; }
+.done .body h3 { text-decoration: line-through; color: var(--muted); }
+.done { opacity: 0.8; }
+
+.empty { text-align: center; color: var(--muted); padding: 2rem 0; }
+
+@media (max-width: 560px) {
+  .item { flex-wrap: wrap; }
+  .item > .actions { width: 100%; justify-content: flex-end; }
+  .weather { flex-basis: 100%; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
